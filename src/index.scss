@@ -1,0 +1,17 @@
+:root {
+  --color-primary: #39CDCC;
+  --color-text: #545F7D
+  --color-border: #545F7D
+  --color-link-dark: #213F7D
+  font-family: "Work Sans", Avenir, system-ui, Helvetica, Arial, sans-serif;
+  font-optical-sizing: auto;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  min-height: 100vh;
+}
