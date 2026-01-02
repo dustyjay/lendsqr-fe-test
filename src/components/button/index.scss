@@ -1,0 +1,31 @@
+.btn {
+  border-radius: 8px;
+  border: 1px solid;
+  width: 100%;
+  font-size: 14px;
+  transition: 100ms linear;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:disabled,
+  &[disabled] {
+    cursor: not-allowed;
+  }
+
+  &-regular {
+    padding: 11px;
+  }
+
+  &-large {
+    padding: 15px;
+  }
+
+  &-primary.btn-solid {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    border-color: var(--color-primary);
+  }
+}

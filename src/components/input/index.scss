@@ -1,0 +1,41 @@
+.input {
+  &-box {
+    font-size: 14px;
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    border-radius: 8px;
+
+    &:focus {
+      box-shadow: none;
+      outline: none;
+    }
+  }
+  &-wrapper {
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+  }
+
+  &-regular {
+    padding: 11px 20px;
+  }
+
+  &-large {
+    padding: 15px 20px;
+  }
+
+  &-password{
+    &__btn{
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 1px;
+      color: var(--color-primary);
+      margin-right: 20px;
+    }
+  }
+}
