@@ -2,7 +2,8 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.scss';
 import { createBrowserRouter, Navigate, RouterProvider } from 'react-router-dom';
-import ALL_ROUTES, { ROUTE_KEYS } from './router';
+import ALL_ROUTES from './router';
+import { ROUTE_KEYS } from './util';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -11,7 +12,7 @@ createRoot(document.getElementById('root')!).render(
         ...ALL_ROUTES,
         {
           path: '*',
-          element: <Navigate to={ROUTE_KEYS.LOGIN} />
+          element: <Navigate to={ROUTE_KEYS.USERS_LIST} />
         }
       ])}
     />

@@ -1,6 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { ROUTE_KEYS } from '.';
-import { STORAGE_KEYS } from '../util';
+import { ROUTE_KEYS, STORAGE_KEYS } from '../util';
 import type { JSX } from 'react';
 
 const AuthRoute = ({ children }: { children: JSX.Element }) => {

@@ -5,13 +5,7 @@ import UsersListPage from '../pages/users-list';
 import UserDetailsPage from '../pages/user-details';
 import UnauthRoute from './unauth-route';
 import LoginPage from '../pages/auth/login';
-
-export const ROUTE_KEYS = {
-  LOGIN: '/login',
-  HOME: '/',
-  USERS_LIST: '/users',
-  USER_DETAILS: '/users/:id'
-};
+import { ROUTE_KEYS } from '../util';
 
 const ALL_ROUTES: RouteObject[] = [
   {
@@ -23,7 +17,6 @@ const ALL_ROUTES: RouteObject[] = [
     )
   },
   {
-    path: ROUTE_KEYS.HOME,
     element: (
       <AuthRoute>
         <DashboardLayout />

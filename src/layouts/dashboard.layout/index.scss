@@ -1,5 +1,9 @@
 .dashboard{
-  &-layout{
-    
+  &__main{
+    display: flex;
+  }
+
+  &__side-nav{
+    width: 283px
   }
 }

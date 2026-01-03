@@ -2,10 +2,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import LoginImage from '../../assets/login-image.svg';
 import Input from '../../components/input';
 import Button from '../../components/button';
-import { useEffect, useState, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import './index.scss';
-import { STORAGE_KEYS } from '../../util';
-import { ROUTE_KEYS } from '../../router';
+import { ROUTE_KEYS, STORAGE_KEYS } from '../../util';
 
 const LeftHandSide = () => {
   return (
@@ -52,7 +51,7 @@ const RightHandSide = () => {
 
     if(!hasErrors){
       localStorage.setItem(STORAGE_KEYS.TOKEN, 'token')
-      navigate(ROUTE_KEYS.HOME)
+      navigate(ROUTE_KEYS.USERS_LIST)
     }
   };
 

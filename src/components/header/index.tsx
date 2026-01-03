@@ -3,8 +3,8 @@ import NotificationIcon from '../../assets/notifications.svg';
 import CaretDownIcon from '../../assets/caret-down.svg';
 import Dropdown, { type DropdownItemType } from '../dropdown';
 import './index.scss';
-import { ROUTE_KEYS } from '../../router';
 import Searchbar from '../searchbar';
+import { ROUTE_KEYS } from '../../util';
 
 const USER_AVATAR =
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKu1w7TulWMUKGszjJlb7PDtn0LVSJgGnrog&s';
