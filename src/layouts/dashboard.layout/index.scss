@@ -3,6 +3,11 @@
     display: flex;
   }
 
+  &__content{
+    padding: 60px;
+    flex: 1
+  }
+
   &__side-nav{
     width: 283px
   }

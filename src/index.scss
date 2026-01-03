@@ -1,9 +1,11 @@
 :root {
   --color-white: #ffffff;
   --color-primary: #39CDCC;
+  --color-secondary: #213F7D;
   --color-text: #545F7D;
-  --color-border: rgba(33, 63, 125, 0.2);
-  --color-text-dark: #213F7D;
+  --color-secondary-1: rgba(33, 63, 125, 0.2);
+  --color-secondary-2: rgba(33, 63, 125, 0.1);
+  --color-secondary-3: rgba(33, 63, 125, 0.06);
   --color-primary-light: rgba(57, 205, 204, 0.06);
 
   font-optical-sizing: auto;
@@ -29,4 +31,11 @@ body {
 
 ul, li, ol{
   list-style: none;
+}
+
+.page-title{
+  font-weight: 500;
+  font-size: 24px;
+  color: var(--color-secondary);
+  margin-bottom: 40px;
 }

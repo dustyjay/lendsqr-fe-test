@@ -41,7 +41,7 @@ const Header = () => {
             <div className='user-menu__image'>
               <img src={USER_AVATAR} alt='User name' />
             </div>
-            <Dropdown items={USER_MENU}>
+            <Dropdown menuItems={USER_MENU}>
               <span className='user-menu__dropdown'>
                 <span>Adedeji</span>
                 <img src={CaretDownIcon} alt='User menu' />

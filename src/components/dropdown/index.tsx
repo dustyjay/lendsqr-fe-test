@@ -1,26 +1,20 @@
-import {
-  useState,
-  useRef,
-  useEffect,
-  type FC,
-  type PropsWithChildren,
-  type ReactNode
-} from 'react';
+import { useState, useRef, useEffect, type PropsWithChildren, type ReactNode } from 'react';
 import './index.scss';
-
-type Props = PropsWithChildren & {
-  items: DropdownItemType[];
-};
+import DropdownItem from './dropdown-item';
 
 export type DropdownItemType = {
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
   isDisabled?: boolean;
   className?: string;
   icon?: ReactNode;
 };
 
-const Dropdown: FC<Props> = ({ children, items }) => {
+type Props = PropsWithChildren & {
+  menuItems: DropdownItemType[];
+};
+
+const Dropdown = ({ children, menuItems }: Props) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null); // Ref to detect clicks outside the menu
 
@@ -44,18 +38,16 @@ const Dropdown: FC<Props> = ({ children, items }) => {
       <button className='dropdown-button' onClick={toggleDropdown}>
         {children}
       </button>
-      {isOpen && items.length > 0 && (
+      {isOpen && menuItems.length > 0 && (
         <ul className='dropdown-menu'>
-          {items.map((item) => (
-            <li>
-              <button
-                onClick={item.onClick}
-                className={`dropdown-item ${item.className || ''}`}
-                disabled={item.isDisabled}>
-                {item.icon && <span>{item.icon}</span>}
-                {item.label}
-              </button>
-            </li>
+          {menuItems.map((menu) => (
+            <DropdownItem
+              {...menu}
+              onClick={() => {
+                setIsOpen(false)
+                menu.onClick?.();
+              }}
+            />
           ))}
         </ul>
       )}

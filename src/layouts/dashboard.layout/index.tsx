@@ -9,7 +9,7 @@ const DashboardLayout = () => {
       <Header />
       <div className='dashboard__main'>
         <SideNav />
-        <main className='grow flex flex-col'>
+        <main className='dashboard__content'>
           <Outlet />
         </main>
       </div>
