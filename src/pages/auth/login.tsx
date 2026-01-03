@@ -1,9 +1,11 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import LoginImage from '../../assets/login-image.svg';
 import Input from '../../components/input';
 import Button from '../../components/button';
-import { useState, type FormEvent } from 'react';
+import { useEffect, useState, type FormEvent } from 'react';
 import './index.scss';
+import { STORAGE_KEYS } from '../../util';
+import { ROUTE_KEYS } from '../../router';
 
 const LeftHandSide = () => {
   return (
@@ -13,15 +15,45 @@ const LeftHandSide = () => {
   );
 };
 
+type FormDataType = {
+  email: string;
+  password: string;
+};
+
 const RightHandSide = () => {
-  const [formData, setFormData] = useState({
+      const navigate = useNavigate()
+  const [formData, setFormData] = useState<FormDataType>({
     email: '',
     password: ''
   });
+  const [errors, setErrors] = useState<Array<keyof FormDataType>>([]);
+
+  const validateForm = () => {
+    const formErrors: Array<keyof FormDataType> = []
+
+    if (!formData.email) {
+      formErrors.push('email')
+    }
+
+    if(!formData.password){
+      formErrors.push('password')
+    }
+
+    if(formErrors.length > 0){
+      setErrors(formErrors)
+      return true
+    }
+  };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Form data', formData);
+
+    const hasErrors = validateForm()
+
+    if(!hasErrors){
+      localStorage.setItem(STORAGE_KEYS.TOKEN, 'token')
+      navigate(ROUTE_KEYS.HOME)
+    }
   };
 
   return (
@@ -33,6 +65,7 @@ const RightHandSide = () => {
         <form onSubmit={handleSubmit} className='auth-form'>
           <Input
             inputSize='large'
+            hasError={errors.includes('email')}
             name='email'
             type='email'
             placeholder='Email'
@@ -41,6 +74,7 @@ const RightHandSide = () => {
           />
           <Input
             inputSize='large'
+            hasError={errors.includes('password')}
             name='password'
             type='password'
             placeholder='Password'
