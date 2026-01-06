@@ -4,15 +4,20 @@ import BackButtonIcon from '../../assets/back-button.svg';
 import StarFilledIcon from '../../assets/star-filled.svg';
 import StarIcon from '../../assets/star.svg';
 import './index.scss';
-import { Fragment, useMemo } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import Button from '../../components/button';
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
-import { tableData } from '../users-list/dummy-data';
 import HorizontalMenu from '../../components/horizontal-menu';
+import type { UserType } from '../../models/user.model';
+
+export type UserOutletObj = {
+  user: UserType;
+};
 
 const UserDetailsPage = () => {
   const { id: userId } = useParams();
   const navigate = useNavigate();
+  const [allUsers, setAllUsers] = useState<UserType[]>([]);
 
   if (!userId) {
     // show error or return to previous screen
@@ -23,46 +28,63 @@ const UserDetailsPage = () => {
   }
 
   const user = useMemo(() => {
-    const userData = tableData.find(({ id }) => id === userId);
+    const userData = allUsers.find(({ id }) => id === userId);
 
     if (!userData) {
       // Show 404, user not found
       return;
     }
 
+    localStorage.setItem('USER', JSON.stringify(userData));
     return userData;
-  }, [userId]);
-
-  if (!user) {
-    return <p>User not found</p>;
-  }
+  }, [userId, allUsers]);
 
   const UserTier = useMemo(() => {
+    if (!user) return null;
+
     return [1, 2, 3].map((star) => {
       const icon = user.tier >= star ? StarFilledIcon : StarIcon;
       return <img src={icon} alt={String(user.tier)} />;
     });
   }, [user]);
 
-  const getRouteMenu = () => {
-    return [
-      {
-        label: 'General Details',
-        link: `/users/${user.id}`
-      },
-      { label: 'Documents', link: `/users/${user.id}/documents` },
-      { label: 'Bank Details', link: `/users/${user.id}/bank-details` },
-      {
-        label: 'Loans',
-        link: `/users/${user.id}/loans`
-      },
-      {
-        label: 'Savings',
-        link: `/users/${user.id}/savings`
-      },
-      { label: 'App and System', link: `/users/${user.id}/app-system` }
-    ];
-  };
+  useEffect(() => {
+    const fetchListOfUsers = async () => {
+      try {
+        const fetchRes = await fetch('https://mocki.io/v1/c6aca6f4-ea0a-47ed-ab9d-09ea624749a3');
+        const res: UserType[] = await fetchRes.json();
+
+        setAllUsers(res);
+      } catch (error) {
+        // TODO :: handle error messages shown to user
+        console.error('An error occurred fetching list of users');
+      }
+    };
+
+    fetchListOfUsers();
+  }, []);
+
+  if (!user) {
+    return <p>User not found</p>;
+  }
+
+  const USER_ROUTE_MENU = [
+    {
+      label: 'General Details',
+      link: `/users/${user.id}`
+    },
+    { label: 'Documents', link: `/users/${user.id}/documents` },
+    { label: 'Bank Details', link: `/users/${user.id}/bank-details` },
+    {
+      label: 'Loans',
+      link: `/users/${user.id}/loans`
+    },
+    {
+      label: 'Savings',
+      link: `/users/${user.id}/savings`
+    },
+    { label: 'App and System', link: `/users/${user.id}/app-system` }
+  ];
 
   return (
     <Fragment>
@@ -105,11 +127,11 @@ const UserDetailsPage = () => {
           </div>
         </div>
         <div className='user-metadata__nav'>
-          <HorizontalMenu list={getRouteMenu()} />
+          <HorizontalMenu list={USER_ROUTE_MENU} />
         </div>
       </BaseCard>
       <div className='user-outlet'>
-        <Outlet />
+        <Outlet context={{ user }} />
       </div>
     </Fragment>
   );

@@ -1,35 +1,11 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { useOutletContext } from 'react-router-dom';
 import { useMemo } from 'react';
-import { tableData } from '../../users-list/dummy-data';
 import BaseCard from '../../../components/base-card';
 import './index.scss';
+import type { UserOutletObj } from '..';
 
 const UserGeneralDetailsPage = () => {
-  const { id: userId } = useParams();
-  const navigate = useNavigate();
-
-  if (!userId) {
-    // show error or return to previous screen
-    setTimeout(() => {
-      navigate(-1);
-    }, 2000);
-    return null;
-  }
-
-  const user = useMemo(() => {
-    const userData = tableData.find(({ id }) => id === userId);
-
-    if (!userData) {
-      // Show 404, user not found
-      return;
-    }
-
-    return userData;
-  }, [userId]);
-
-  if (!user) {
-    return <p>User not found</p>;
-  }
+  const { user } = useOutletContext<UserOutletObj>();
 
   const personalInfo = useMemo(() => {
     return [

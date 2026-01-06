@@ -6,8 +6,8 @@ import UsersWithSavingsIcon from '../../assets/user-icons/users-with-savings.svg
 
 import './index.scss';
 import Table from '../../components/table';
-import { tableData, tableHeaders } from './dummy-data';
-import { useState } from 'react';
+import { tableHeaders } from './dummy-data';
+import { useEffect, useState } from 'react';
 import useTableSort from '../../components/table/useTableSort';
 import UserListItem from './user-list-item';
 import type { UserType } from '../../models/user.model';
@@ -17,17 +17,34 @@ import { Paginate, type PageSize } from '../../components/paginate';
 
 const UsersListPage = () => {
   const [activeSort, setActiveSort] = useState<keyof UserType>('organization');
+  const [allUsers, setAllUsers] = useState<UserType[]>([]);
   const [pagination, setPagination] = useState<{
     pageSize: PageSize;
     totalCount: number;
     pageNumber: number;
   }>({
     pageSize: 20,
-    totalCount: 100,
+    totalCount: 102,
     pageNumber: 1
   });
 
-  const { sortedList } = useTableSort(tableData, activeSort);
+  const { sortedList } = useTableSort(allUsers, activeSort);
+
+  const fetchListOfUsers = async () => {
+    try {
+      const fetchRes = await fetch('https://mocki.io/v1/c6aca6f4-ea0a-47ed-ab9d-09ea624749a3');
+      const res: UserType[] = await fetchRes.json();
+
+      setAllUsers(res);
+    } catch (error) {
+      // TODO :: handle error messages shown to user
+      console.error('An error occurred fetching list of users');
+    }
+  };
+
+  useEffect(() => {
+    fetchListOfUsers();
+  }, []);
 
   return (
     <section>
