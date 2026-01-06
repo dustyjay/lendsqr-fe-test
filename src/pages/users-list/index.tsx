@@ -13,9 +13,19 @@ import UserListItem from './user-list-item';
 import type { UserType } from '../../models/user.model';
 import UserListMobile from './user-list-mobile';
 import SortPopover from './sort-popover';
+import { Paginate, type PageSize } from '../../components/paginate';
 
 const UsersListPage = () => {
   const [activeSort, setActiveSort] = useState<keyof UserType>('organization');
+  const [pagination, setPagination] = useState<{
+    pageSize: PageSize;
+    totalCount: number;
+    pageNumber: number;
+  }>({
+    pageSize: 20,
+    totalCount: 100,
+    pageNumber: 1
+  });
 
   const { sortedList } = useTableSort(tableData, activeSort);
 
@@ -73,6 +83,12 @@ const UsersListPage = () => {
         <SortPopover sortKey={activeSort} onSelect={setActiveSort} />
         <UserListMobile users={sortedList} />
       </div>
+      <Paginate
+        {...pagination}
+        initialPage={1}
+        onPageChange={(e) => setPagination({ ...pagination, pageNumber: e.selected })}
+        onPageSizeChange={(e) => setPagination({ ...pagination, pageSize: e })}
+      />
     </section>
   );
 };
