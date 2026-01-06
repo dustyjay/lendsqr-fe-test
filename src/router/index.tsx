@@ -6,13 +6,14 @@ import UserDetailsPage from '../pages/user-details';
 import UnauthRoute from './unauth-route';
 import LoginPage from '../pages/auth/login';
 import { ROUTE_KEYS } from '../util';
+import UserGeneralDetailsPage from '../pages/user-details/general-details';
 
 const ALL_ROUTES: RouteObject[] = [
   {
     path: ROUTE_KEYS.LOGIN,
     element: (
       <UnauthRoute>
-          <LoginPage />
+        <LoginPage />
       </UnauthRoute>
     )
   },
@@ -29,7 +30,13 @@ const ALL_ROUTES: RouteObject[] = [
       },
       {
         path: ROUTE_KEYS.USER_DETAILS,
-        element: <UserDetailsPage />
+        element: <UserDetailsPage />,
+        children: [
+          {
+            index: true,
+            element: <UserGeneralDetailsPage />
+          }
+        ]
       }
     ]
   }

@@ -1,9 +1,8 @@
 import { useMemo } from 'react';
-import type { TableDataType } from './types';
 
-function useTableSort<T extends string>(tableData: TableDataType<T>[], activeSort: T) {
+function useTableSort<T extends object>(tableData: T[], activeSort: keyof T) {
   const sortedList = useMemo(() => {
-    return tableData.sort((a, b) => a[activeSort].localeCompare(b[activeSort]));
+    return tableData.sort((a, b) => String(a[activeSort]).localeCompare(String(b[activeSort])));
   }, [activeSort, tableData]);
 
   return { sortedList };

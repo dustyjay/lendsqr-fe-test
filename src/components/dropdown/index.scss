@@ -8,6 +8,7 @@
     border: none;
     background: none;
     cursor: pointer;
+    display: inline-flex;
   }
 
   &-menu {
@@ -37,6 +38,10 @@
 
     &:disabled{
       cursor: not-allowed;
+    }
+
+    &.is-active{
+      background-color:  var(--color-primary-light);
     }
   }
 

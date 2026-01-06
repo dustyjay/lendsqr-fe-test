@@ -1,7 +1,6 @@
-import { type ReactNode } from 'react';
+import { type PropsWithChildren } from 'react';
 
-type TableDataProps = {
-  children: ReactNode;
+type TableDataProps = PropsWithChildren & {
   className?: string;
 };
 

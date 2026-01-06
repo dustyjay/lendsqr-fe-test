@@ -8,6 +8,7 @@ export type DropdownItemType = {
   isDisabled?: boolean;
   className?: string;
   icon?: ReactNode;
+  active?: boolean
 };
 
 type Props = PropsWithChildren & {

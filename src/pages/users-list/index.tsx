@@ -6,19 +6,24 @@ import UsersWithSavingsIcon from '../../assets/user-icons/users-with-savings.svg
 
 import './index.scss';
 import Table from '../../components/table';
-import { tableData, tableHeaders, type USER_TABLE_KEY } from './dummy-data';
+import { tableData, tableHeaders } from './dummy-data';
 import { useState } from 'react';
 import useTableSort from '../../components/table/useTableSort';
 import UserListItem from './user-list-item';
+import type { UserType } from '../../models/user.model';
+import UserListMobile from './user-list-mobile';
+import SortPopover from './sort-popover';
 
 const UsersListPage = () => {
-  const [activeSort, setActiveSort] = useState<USER_TABLE_KEY>('organization');
+  const [activeSort, setActiveSort] = useState<keyof UserType>('organization');
 
   const { sortedList } = useTableSort(tableData, activeSort);
 
   return (
     <section>
-      <h1 className='page-title'>Users</h1>
+      <div className='page-header'>
+        <h1 className='page-title'>Users</h1>
+      </div>
       <div className='stats-list'>
         <BaseCard>
           <div className='stats-card'>
@@ -57,13 +62,17 @@ const UsersListPage = () => {
           </div>
         </BaseCard>
       </div>
-      <BaseCard>
+      <BaseCard className='user-table'>
         <Table activeSort={activeSort} onSortChange={setActiveSort} headers={tableHeaders}>
           {sortedList.map((td, i) => (
             <UserListItem data={td} key={i} />
           ))}
         </Table>
       </BaseCard>
+      <div className='user-mobile__wrapper'>
+        <SortPopover sortKey={activeSort} onSelect={setActiveSort} />
+        <UserListMobile users={sortedList} />
+      </div>
     </section>
   );
 };

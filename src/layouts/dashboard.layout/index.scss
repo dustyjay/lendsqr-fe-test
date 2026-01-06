@@ -1,14 +1,24 @@
-.dashboard{
-  &__main{
+.dashboard {
+  &__main {
     display: flex;
   }
 
-  &__content{
-    padding: 60px;
-    flex: 1
+  &__content {
+    padding: 20px;
+    flex: 1;
+    width: 100%;
+
+    @media screen and (min-width: 768px) {
+      padding: 60px;
+    }
   }
 
-  &__side-nav{
-    width: 283px
+  &__side-nav {
+    display: none;
+
+    @media screen and (min-width: 1240px) {
+      display: unset;
+      width: 283px;
+    }
   }
 }

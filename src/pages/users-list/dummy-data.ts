@@ -1,59 +1,51 @@
-import type { TableHeaderType, TableDataType } from '../../components/table/types';
+import type { TableHeaderType } from '../../components/table/types';
+import type {  UserType } from '../../models/user.model';
+import { userDetails } from '../user-details/dummy-data';
 
-export type USER_TABLE_KEY =
-  | 'organization'
-  | 'username'
-  | 'email'
-  | 'phoneNumber'
-  | 'dateJoined'
-  | 'status';
-
-export type USER_TABLE_STATUS = 'Inactive' | 'Pending' | 'Blacklisted' | 'Active';
-
-export const tableData: TableDataType<USER_TABLE_KEY>[] = [
+export const tableData: UserType[] = [
   {
-    organization: 'Irorun',
-    username: 'Jane Doe',
-    email: 'yrust@yourown.risk',
-    phoneNumber: '090375827482',
-    dateJoined: 'May 15, 2018 10:00 AM',
-    status: 'Inactive'
+    ...userDetails,
+    id: 'LSQFf587g90'
   },
   {
+    ...userDetails,
+    id: 'W429jc01l',
     organization: 'Adeolu Inc',
     username: 'Jane Doe',
     email: 'wrust@yourown.risk',
     phoneNumber: '090375827482',
-    dateJoined: 'May 15, 2018 10:00 AM',
     status: 'Active'
   },
   {
+    ...userDetails,
+    id: 'Uewf4452jod',
     organization: 'Blessed Inc',
     username: 'Ariah Doe',
     email: 'prust@yourown.risk',
     phoneNumber: '090375827482',
-    dateJoined: 'May 15, 2018 10:00 AM',
     status: 'Active'
   },
   {
+    ...userDetails,
+    id: 'Pjw83njio1',
     organization: 'Jesuis',
     username: 'Jane Doe',
     email: 'arust@yourown.risk',
     phoneNumber: '090375827482',
-    dateJoined: 'May 15, 2018 10:00 AM',
     status: 'Blacklisted'
   },
   {
+    ...userDetails,
+    id: 'P221kJjio1',
     organization: 'Irorun',
     username: 'Jane Doe',
     email: 'abust@yourown.risk',
     phoneNumber: '090375827482',
-    dateJoined: 'May 15, 2018 10:00 AM',
     status: 'Pending'
   }
 ];
 
-export const tableHeaders: TableHeaderType<USER_TABLE_KEY>[] = [
+export const tableHeaders: TableHeaderType<keyof UserType>[] = [
   {
     label: 'Organization',
     key: 'organization',
@@ -76,7 +68,7 @@ export const tableHeaders: TableHeaderType<USER_TABLE_KEY>[] = [
   },
   {
     label: 'Date Joined',
-    key: 'dateJoined',
+    key: 'createdAt',
     canSort: true
   },
   {

@@ -1,23 +1,25 @@
 import type { FC } from 'react';
 import TableData from '../../components/table/table-data';
 import TableRow from '../../components/table/table-row';
-import type { TableDataType } from '../../components/table/types';
-import type { USER_TABLE_KEY, USER_TABLE_STATUS } from './dummy-data';
 import StatusTag from '../../components/status-tag';
 import Dropdown, { type DropdownItemType } from '../../components/dropdown';
 import MoreIcon from '../../assets/more.svg';
 import './index.scss'
+import type { USER_TABLE_STATUS, UserType } from '../../models/user.model';
+import { useNavigate } from 'react-router-dom';
 
 type Props = {
-  data: TableDataType<USER_TABLE_KEY>;
+  data: UserType
 };
 
 const UserListItem: FC<Props> = ({ data }) => {
+  const navigate = useNavigate()
+
   const DROPDOWN_MENU: DropdownItemType[] = [
     {
       label: 'View Details',
       onClick: () => {
-        console.log('View details', data.organization);
+        navigate(`/users/${data.id}`)
       }
     },
     {
@@ -40,7 +42,7 @@ const UserListItem: FC<Props> = ({ data }) => {
       <TableData>{data.username}</TableData>
       <TableData>{data.email}</TableData>
       <TableData>{data.phoneNumber}</TableData>
-      <TableData>{data.dateJoined}</TableData>
+      <TableData>{data.createdAt}</TableData>
       <TableData>
         <div className='user-table__status'>
           <StatusTag status={data.status as USER_TABLE_STATUS} />

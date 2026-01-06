@@ -1,0 +1,39 @@
+.h-menu {
+  &__nav{
+    overflow: hidden;
+  }
+  &__list {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    overflow-y: hidden;
+  }
+
+  &__item {
+    flex: none;
+  }
+
+  &__link {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.8);
+    border-bottom: 2px solid transparent;
+    text-decoration: none;
+    transition: 200ms linear;
+    display: inline-block;
+
+    @media screen and (min-width: 768px){
+    padding: 10px 25px;
+      
+    }
+
+    &:hover{
+      color: var(--color-primary)
+    }
+
+    &.is-active{
+      border-color: var(--color-primary);
+      color: var(--color-primary)
+    }
+  }
+}

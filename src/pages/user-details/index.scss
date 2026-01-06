@@ -1,0 +1,94 @@
+.user {
+  &-metadata {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px 0;
+
+    &__name {
+      padding-right: 30px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    &__tier {
+      border: 1px solid var(--color-secondary-2);
+      border-left: none;
+      border-right: none;
+      padding: 30px;
+      padding-left: 0;
+      width: 100%;
+    }
+
+    &__avatar {
+      width: 50px;
+      height: 50px;
+      background: var(--color-secondary-1);
+      border-radius: 50%;
+
+      &.is-icon {
+        padding: 10px;
+      }
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+    }
+
+    @media screen and (min-width: 768px) {
+      align-items: center;
+      flex-direction: row;
+
+      &__tier {
+        border: 1px solid var(--color-secondary-2);
+        border-top: none;
+        border-bottom: none;
+        width: unset;
+        padding-left: 30px;
+      }
+
+      &__bank {
+        padding: 30px;
+      }
+
+      &__avatar {
+        width: 100px;
+        height: 100px;
+      }
+    }
+
+    &__user,
+    &__balance {
+      font-size: 22px;
+      font-weight: 500;
+      color: var(--color-secondary);
+    }
+
+    &__stars {
+      display: flex;
+      gap: 4px;
+    }
+
+    &__acct {
+      font-size: 12px;
+      color: var(--color-secondary);
+    }
+
+    &__nav {
+      position: relative;
+      top: 31px;
+    }
+  }
+
+  &-outlet {
+    margin-top: 70px;
+
+    @media screen and (min-width:768px){
+    margin-top: 30px;
+      
+    }
+  }
+}

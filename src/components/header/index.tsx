@@ -5,6 +5,7 @@ import Dropdown, { type DropdownItemType } from '../dropdown';
 import './index.scss';
 import Searchbar from '../searchbar';
 import { ROUTE_KEYS } from '../../util';
+import MobileHeader from './mobile-header';
 
 const USER_AVATAR =
   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKu1w7TulWMUKGszjJlb7PDtn0LVSJgGnrog&s';
@@ -50,6 +51,7 @@ const Header = () => {
           </li>
         </ul>
       </div>
+      <MobileHeader/>
     </header>
   );
 };
