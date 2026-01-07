@@ -3,9 +3,11 @@
   height: calc(100vh - 68px);
   overflow-y: auto;
   padding-top: 10px;
+  padding-bottom: 20px;
 
   @media screen and (min-width: 768px) {
     padding-top: 40px;
+    padding-bottom: 0;
     position: sticky;
     top: 100px;
     height: calc(100vh - 100px);

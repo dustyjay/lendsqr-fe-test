@@ -10,7 +10,7 @@ export const ROUTE_KEYS = {
 };
 
 export const formatCurrency = (value: string | number, currency = 'NGN') => {
-  return new Intl.NumberFormat(currency === 'NGN' ? 'en-NG' : 'en-US', {
+  return new Intl.NumberFormat(currency.toUpperCase() === 'NGN' ? 'en-NG' : 'en-US', {
     style: 'currency',
     currency,
     currencyDisplay: 'symbol'

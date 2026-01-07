@@ -23,9 +23,15 @@ const Input: FC<Props> = ({
 
   return (
     <div className={`input-wrapper ${hasError ? 'input-error' : ''} ${wrapperClassName}`}>
-      <input {...inputProps} className={`input-box input-${inputSize} ${className}`} type={inputType} />
+      <input
+        {...inputProps}
+        className={`input-box input-${inputSize} ${className}`}
+        type={inputType}
+      />
       {defaultType === 'password' && (
-        <button className='input-password__btn' onClick={toggleInputType}>{inputType === 'password' ? 'SHOW' : 'HIDE'}</button>
+        <button type='button' className='input-password__btn' onClick={toggleInputType}>
+          {inputType === 'password' ? 'SHOW' : 'HIDE'}
+        </button>
       )}
     </div>
   );

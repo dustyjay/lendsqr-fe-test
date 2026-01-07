@@ -7,7 +7,7 @@
     border: 1px solid var(--color-secondary-1);
     outline: none;
     border-radius: 8px 0px 0px 8px;
-    min-width: 60%;
+    width: 60%;
     max-width: 344px;
 
     &:focus {
@@ -15,7 +15,7 @@
     }
   }
 
-  &-button{
+  &-button {
     background-color: var(--color-primary);
     height: 40px;
     width: 56px;
@@ -23,6 +23,6 @@
     justify-content: center;
     align-items: center;
     border-radius: 0px 8px 8px 0px;
-    border: 1px solid var(--color-primaryß)
+    border: 1px solid var(--color-primaryß);
   }
 }

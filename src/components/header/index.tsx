@@ -33,7 +33,9 @@ const Header = () => {
         </div>
         <ul className='header-user'>
           <li>
-            <Link to=''>Docs</Link>
+            <Link to='' className='header-link'>
+              Docs
+            </Link>
           </li>
           <li>
             <img src={NotificationIcon} alt='Notifications' />
@@ -51,7 +53,7 @@ const Header = () => {
           </li>
         </ul>
       </div>
-      <MobileHeader/>
+      <MobileHeader />
     </header>
   );
 };

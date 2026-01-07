@@ -48,6 +48,10 @@
     }
   }
 
+  &-link {
+    color: var(--color-secondary);
+  }
+
   &-main {
     align-items: center;
     gap: 24px;
