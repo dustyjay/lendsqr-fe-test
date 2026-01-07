@@ -157,7 +157,7 @@ Located in `src/components/table/`, features:
 The application fetches user data from an external API:
 
 ```typescript
-fetch('https://mocki.io/v1/ba8c839d-a24c-4f4a-a82c-e950a7a1bdf5');
+fetch('https://mocki.io/v1/f5b1ba6f-a36a-42aa-94e8-779ffd334491');
 ```
 
 ## Responsive Design

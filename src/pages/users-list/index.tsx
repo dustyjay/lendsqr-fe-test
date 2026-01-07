@@ -24,9 +24,10 @@ const UsersListPage = () => {
     forcePage: number;
   }>({
     pageSize: 20,
-    totalCount: 102,
+    totalCount: 0,
     forcePage: 0
   });
+  const [loading, setLoading] = useState(false);
 
   const { sortedList } = useTableSort(allUsers, activeSort);
 
@@ -53,7 +54,8 @@ const UsersListPage = () => {
 
   const fetchListOfUsers = async () => {
     try {
-      const fetchRes = await fetch('https://mocki.io/v1/ba8c839d-a24c-4f4a-a82c-e950a7a1bdf5');
+      setLoading(true);
+      const fetchRes = await fetch('https://mocki.io/v1/f5b1ba6f-a36a-42aa-94e8-779ffd334491');
       const res: UserType[] = await fetchRes.json();
 
       setAllUsers(res);
@@ -61,12 +63,18 @@ const UsersListPage = () => {
     } catch (error) {
       // TODO :: handle error messages shown to user
       console.error('An error occurred fetching list of users');
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
     fetchListOfUsers();
   }, []);
+
+  if (loading) {
+    return <div className='page-loading'>Loading data...</div>;
+  }
 
   return (
     <section>

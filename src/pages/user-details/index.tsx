@@ -19,6 +19,7 @@ const UserDetailsPage = () => {
   const { id: userId } = useParams();
   const navigate = useNavigate();
   const [allUsers, setAllUsers] = useState<UserType[]>([]);
+  const [loading, setLoading] = useState(false);
 
   if (!userId) {
     // show error or return to previous screen
@@ -36,7 +37,6 @@ const UserDetailsPage = () => {
       return;
     }
 
-    localStorage.setItem('USER', JSON.stringify(userData));
     return userData;
   }, [userId, allUsers]);
 
@@ -45,25 +45,32 @@ const UserDetailsPage = () => {
 
     return [1, 2, 3].map((star) => {
       const icon = user.tier >= star ? StarFilledIcon : StarIcon;
-      return <img src={icon} alt={String(user.tier)} />;
+      return <img src={icon} alt={`${user.tier}-star`} />;
     });
   }, [user]);
 
   useEffect(() => {
     const fetchListOfUsers = async () => {
       try {
-        const fetchRes = await fetch('https://mocki.io/v1/ba8c839d-a24c-4f4a-a82c-e950a7a1bdf5');
+        setLoading(true);
+        const fetchRes = await fetch('https://mocki.io/v1/f5b1ba6f-a36a-42aa-94e8-779ffd334491');
         const res: UserType[] = await fetchRes.json();
 
         setAllUsers(res);
       } catch (error) {
         // TODO :: handle error messages shown to user
         console.error('An error occurred fetching list of users');
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchListOfUsers();
   }, []);
+
+  if (loading) {
+    return <div className='page-loading'>Loading data...</div>;
+  }
 
   if (!user) {
     return <p>User not found</p>;
