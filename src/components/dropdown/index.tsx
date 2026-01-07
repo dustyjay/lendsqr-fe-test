@@ -8,7 +8,7 @@ export type DropdownItemType = {
   isDisabled?: boolean;
   className?: string;
   icon?: ReactNode;
-  active?: boolean
+  active?: boolean;
 };
 
 type Props = PropsWithChildren & {
@@ -43,9 +43,10 @@ const Dropdown = ({ children, menuItems }: Props) => {
         <ul className='dropdown-menu'>
           {menuItems.map((menu) => (
             <DropdownItem
+              key={menu.label}
               {...menu}
               onClick={() => {
-                setIsOpen(false)
+                setIsOpen(false);
                 menu.onClick?.();
               }}
             />

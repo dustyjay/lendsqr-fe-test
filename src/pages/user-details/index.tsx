@@ -9,6 +9,7 @@ import Button from '../../components/button';
 import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
 import HorizontalMenu from '../../components/horizontal-menu';
 import type { UserType } from '../../models/user.model';
+import { formatCurrency } from '../../util';
 
 export type UserOutletObj = {
   user: UserType;
@@ -51,7 +52,7 @@ const UserDetailsPage = () => {
   useEffect(() => {
     const fetchListOfUsers = async () => {
       try {
-        const fetchRes = await fetch('https://mocki.io/v1/c6aca6f4-ea0a-47ed-ab9d-09ea624749a3');
+        const fetchRes = await fetch('https://mocki.io/v1/ba8c839d-a24c-4f4a-a82c-e950a7a1bdf5');
         const res: UserType[] = await fetchRes.json();
 
         setAllUsers(res);
@@ -96,10 +97,13 @@ const UserDetailsPage = () => {
       <div className='page-header'>
         <h1 className='page-title'>User Details</h1>
         <div className='page-header__cta'>
-          <Button variant='outline' color='danger'>
-            BLACKLIST&nbsp;USER
-          </Button>
-          <Button variant='outline'>ACTIVATE USER</Button>
+          {user.status !== 'Blacklisted' && (
+            <Button variant='outline' color='danger'>
+              BLACKLIST&nbsp;USER
+            </Button>
+          )}
+          {user.status !== 'Active' && <Button variant='outline'>ACTIVATE USER</Button>}
+          {user.status === 'Active' && <Button color='danger'>DEACTIVATE</Button>}
         </div>
       </div>
       <BaseCard>
@@ -120,7 +124,7 @@ const UserDetailsPage = () => {
             <div className='user-metadata__stars'>{UserTier}</div>
           </div>
           <div className='user-metadata__bank'>
-            <h4 className='user-metadata__balance'>N{user.balance}</h4>
+            <h4 className='user-metadata__balance'>{formatCurrency(user.balance)}</h4>
             <p className='user-metadata__acct'>
               {user.bankDetails.accountNumber}/{user.bankDetails.name}
             </p>

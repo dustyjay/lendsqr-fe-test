@@ -4,6 +4,7 @@ import StatusTag from '../../components/status-tag';
 import Dropdown from '../../components/dropdown';
 import { Link, useNavigate } from 'react-router-dom';
 import MoreIcon from '../../assets/more.svg';
+import { formatDate } from '../../util';
 
 type Props = {
   users: UserType[];
@@ -57,7 +58,7 @@ const UserListMobile: FC<Props> = ({ users }) => {
             </div>
             <p>{user.email}</p>
             <p>{user.phoneNumber}</p>
-            <p className='user-mobile__created-at'>Date joined: {user.createdAt}</p>
+            <p className='user-mobile__created-at'>Date joined: {formatDate(user.createdAt)}</p>
           </div>
         </li>
       ))}

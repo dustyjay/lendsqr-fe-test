@@ -6,8 +6,8 @@ import UsersWithSavingsIcon from '../../assets/user-icons/users-with-savings.svg
 
 import './index.scss';
 import Table from '../../components/table';
-import { tableHeaders } from './dummy-data';
-import { useEffect, useState } from 'react';
+import { tableHeaders } from './util';
+import { useEffect, useMemo, useState } from 'react';
 import useTableSort from '../../components/table/useTableSort';
 import UserListItem from './user-list-item';
 import type { UserType } from '../../models/user.model';
@@ -21,21 +21,43 @@ const UsersListPage = () => {
   const [pagination, setPagination] = useState<{
     pageSize: PageSize;
     totalCount: number;
-    pageNumber: number;
+    forcePage: number;
   }>({
     pageSize: 20,
     totalCount: 102,
-    pageNumber: 1
+    forcePage: 0
   });
 
   const { sortedList } = useTableSort(allUsers, activeSort);
 
+  const paginatedUsers = useMemo(() => {
+    const { forcePage, pageSize } = pagination;
+    const offset = pageSize * forcePage;
+
+    return sortedList.slice(offset, pageSize + offset);
+  }, [pagination, sortedList, activeSort]);
+
+  const counters = useMemo(() => {
+    const usersCount = allUsers.length;
+    const activeUsersCount = allUsers.filter((u) => u.status === 'Active').length;
+    const usersWithLoans = allUsers.filter((u) => u.loan.repayment > 0).length;
+    const usersWithSavings = allUsers.filter((u) => u.balance > 0).length;
+
+    return {
+      usersCount,
+      activeUsersCount,
+      usersWithLoans,
+      usersWithSavings
+    };
+  }, [allUsers]);
+
   const fetchListOfUsers = async () => {
     try {
-      const fetchRes = await fetch('https://mocki.io/v1/c6aca6f4-ea0a-47ed-ab9d-09ea624749a3');
+      const fetchRes = await fetch('https://mocki.io/v1/ba8c839d-a24c-4f4a-a82c-e950a7a1bdf5');
       const res: UserType[] = await fetchRes.json();
 
       setAllUsers(res);
+      setPagination({ ...pagination, totalCount: res.length });
     } catch (error) {
       // TODO :: handle error messages shown to user
       console.error('An error occurred fetching list of users');
@@ -58,7 +80,7 @@ const UsersListPage = () => {
               <img src={AllUsersIcon} alt='All Users' />
             </span>
             <span className='stats-title'>USERS</span>
-            <span className='stats-count'>2,453</span>
+            <span className='stats-count'>{counters.usersCount.toLocaleString('en-NG')}</span>
           </div>
         </BaseCard>
         <BaseCard>
@@ -67,7 +89,7 @@ const UsersListPage = () => {
               <img src={ActiveUsersIcon} alt='Active Users' />
             </span>
             <span className='stats-title'>ACTIVE USERS</span>
-            <span className='stats-count'>2,453</span>
+            <span className='stats-count'>{counters.activeUsersCount.toLocaleString('en-NG')}</span>
           </div>
         </BaseCard>
         <BaseCard>
@@ -76,7 +98,7 @@ const UsersListPage = () => {
               <img src={UsersWithLoansIcon} alt='Users with loans' />
             </span>
             <span className='stats-title'>USERS WITH LOANS</span>
-            <span className='stats-count'>12,453</span>
+            <span className='stats-count'>{counters.usersWithLoans.toLocaleString('en-NG')}</span>
           </div>
         </BaseCard>
         <BaseCard>
@@ -85,26 +107,26 @@ const UsersListPage = () => {
               <img src={UsersWithSavingsIcon} alt='Users with savings' />
             </span>
             <span className='stats-title'>USERS WITH SAVINGS</span>
-            <span className='stats-count'>102,453</span>
+            <span className='stats-count'>{counters.usersWithSavings.toLocaleString('en-NG')}</span>
           </div>
         </BaseCard>
       </div>
       <BaseCard className='user-table'>
         <Table activeSort={activeSort} onSortChange={setActiveSort} headers={tableHeaders}>
-          {sortedList.map((td, i) => (
+          {paginatedUsers.map((td, i) => (
             <UserListItem data={td} key={i} />
           ))}
         </Table>
       </BaseCard>
       <div className='user-mobile__wrapper'>
         <SortPopover sortKey={activeSort} onSelect={setActiveSort} />
-        <UserListMobile users={sortedList} />
+        <UserListMobile users={paginatedUsers} />
       </div>
       <Paginate
         {...pagination}
-        initialPage={1}
-        onPageChange={(e) => setPagination({ ...pagination, pageNumber: e.selected })}
-        onPageSizeChange={(e) => setPagination({ ...pagination, pageSize: e })}
+        initialPage={0}
+        onPageChange={(e) => setPagination({ ...pagination, forcePage: e.selected })}
+        onPageSizeChange={(e) => setPagination({ ...pagination, pageSize: e, forcePage: 0 })}
       />
     </section>
   );

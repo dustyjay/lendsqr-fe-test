@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 import BaseCard from '../../../components/base-card';
 import './index.scss';
 import type { UserOutletObj } from '..';
+import { formatCurrency, getDateDiff } from '../../../util';
 
 const UserGeneralDetailsPage = () => {
   const { user } = useOutletContext<UserOutletObj>();
@@ -38,14 +39,20 @@ const UserGeneralDetailsPage = () => {
       },
       { label: 'Sector of employment', value: user.employment.sector },
       // TODO :: use date instead to determine duration
-      { label: 'Duration of employment', value: user.employment.duration },
+      { label: 'Duration of employment', value: getDateDiff(user.employment.employedAt) },
       { label: 'Office email', value: user.employment.officeEmail },
       // TODO :: format currency properly
       {
         label: 'Monthly income',
-        value: `N${user.employment.monthIncomeMin}-N${user.employment.monthIncomeMax}`
+        value: `${formatCurrency(
+          user.employment.monthIncomeMin,
+          user.employment.currency
+        )} - ${formatCurrency(user.employment.monthIncomeMax, user.employment.currency)}`
       },
-      { label: 'Loan repayment', value: `N${user.loan.repayment}` }
+      {
+        label: 'Loan repayment',
+        value: `${formatCurrency(user.loan.repayment, user.loan.currency)}`
+      }
     ];
   }, [user]);
 

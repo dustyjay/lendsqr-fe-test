@@ -1,9 +1,4 @@
-export type USER_TABLE_KEY =
-  | 'organization'
-  | 'username'
-  | 'email'
-  | 'phoneNumber'
-  | 'status';
+export type USER_TABLE_KEY = 'organization' | 'username' | 'email' | 'phoneNumber' | 'status';
 
 export type USER_TABLE_STATUS = 'Inactive' | 'Pending' | 'Blacklisted' | 'Active';
 export type CurrencyType = 'naira' | 'usd';
@@ -27,8 +22,8 @@ export type UserType = {
   children: number;
   residenceType: string;
   status: UserStatusType;
-  createdAt: string
-  organization: string
+  createdAt: string;
+  organization: string;
   balance: number;
   education: {
     level: string;
@@ -40,7 +35,7 @@ export type UserType = {
   employment: {
     status: EmploymentStatusType;
     sector: string;
-    duration: string;
+    employedAt: string;
     officeEmail: string;
     monthIncomeMin: number;
     monthIncomeMax: number;

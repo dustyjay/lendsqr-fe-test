@@ -1,6 +1,6 @@
 import { useMemo, type CSSProperties, type FC } from 'react';
-import type { USER_TABLE_STATUS } from '../../pages/users-list/dummy-data';
-import './index.scss'
+import './index.scss';
+import type { USER_TABLE_STATUS } from '../../models/user.model';
 
 const statusMapping: Record<USER_TABLE_STATUS, CSSProperties> = {
   Active: {
@@ -30,7 +30,11 @@ const StatusTag: FC<Props> = ({ status }) => {
     return statusMapping[status];
   }, [status]);
 
-  return <span className='status-tag' style={styles}>{status}</span>;
+  return (
+    <span className='status-tag' style={styles}>
+      {status}
+    </span>
+  );
 };
 
-export default StatusTag
+export default StatusTag;

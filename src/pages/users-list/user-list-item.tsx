@@ -4,22 +4,23 @@ import TableRow from '../../components/table/table-row';
 import StatusTag from '../../components/status-tag';
 import Dropdown, { type DropdownItemType } from '../../components/dropdown';
 import MoreIcon from '../../assets/more.svg';
-import './index.scss'
+import './index.scss';
 import type { USER_TABLE_STATUS, UserType } from '../../models/user.model';
 import { useNavigate } from 'react-router-dom';
+import { formatDate } from '../../util';
 
 type Props = {
-  data: UserType
+  data: UserType;
 };
 
 const UserListItem: FC<Props> = ({ data }) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const DROPDOWN_MENU: DropdownItemType[] = [
     {
       label: 'View Details',
       onClick: () => {
-        navigate(`/users/${data.id}`)
+        navigate(`/users/${data.id}`);
       }
     },
     {
@@ -42,7 +43,7 @@ const UserListItem: FC<Props> = ({ data }) => {
       <TableData>{data.username}</TableData>
       <TableData>{data.email}</TableData>
       <TableData>{data.phoneNumber}</TableData>
-      <TableData>{data.createdAt}</TableData>
+      <TableData>{formatDate(data.createdAt)}</TableData>
       <TableData>
         <div className='user-table__status'>
           <StatusTag status={data.status as USER_TABLE_STATUS} />
@@ -58,5 +59,4 @@ const UserListItem: FC<Props> = ({ data }) => {
   );
 };
 
-
-export default UserListItem
+export default UserListItem;

@@ -1,5 +1,6 @@
+import type { DropdownItemType } from '../../components/dropdown';
 import type { TableHeaderType } from '../../components/table/types';
-import type { UserType } from '../../models/user.model';
+import type { UserStatusType, UserType } from '../../models/user.model';
 
 export const tableHeaders: TableHeaderType<keyof UserType>[] = [
   {
