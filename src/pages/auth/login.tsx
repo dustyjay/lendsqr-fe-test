@@ -4,7 +4,7 @@ import Input from '../../components/input';
 import Button from '../../components/button';
 import { useState, type FormEvent } from 'react';
 import './index.scss';
-import { ROUTE_KEYS, STORAGE_KEYS } from '../../util';
+import { isEmailValid, ROUTE_KEYS, STORAGE_KEYS } from '../../util';
 
 const LeftHandSide = () => {
   return (
@@ -20,7 +20,7 @@ type FormDataType = {
 };
 
 const RightHandSide = () => {
-      const navigate = useNavigate()
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<FormDataType>({
     email: '',
     password: ''
@@ -28,30 +28,30 @@ const RightHandSide = () => {
   const [errors, setErrors] = useState<Array<keyof FormDataType>>([]);
 
   const validateForm = () => {
-    const formErrors: Array<keyof FormDataType> = []
+    const formErrors: Array<keyof FormDataType> = [];
 
-    if (!formData.email) {
-      formErrors.push('email')
+    if (!formData.email || !isEmailValid(formData.email)) {
+      formErrors.push('email');
     }
 
-    if(!formData.password){
-      formErrors.push('password')
+    if (!formData.password) {
+      formErrors.push('password');
     }
 
-    if(formErrors.length > 0){
-      setErrors(formErrors)
-      return true
+    if (formErrors.length > 0) {
+      setErrors(formErrors);
+      return true;
     }
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const hasErrors = validateForm()
+    const hasErrors = validateForm();
 
-    if(!hasErrors){
-      localStorage.setItem(STORAGE_KEYS.TOKEN, 'token')
-      navigate(ROUTE_KEYS.USERS_LIST)
+    if (!hasErrors) {
+      localStorage.setItem(STORAGE_KEYS.TOKEN, 'token');
+      navigate(ROUTE_KEYS.USERS_LIST);
     }
   };
 
